@@ -32,7 +32,7 @@ actor TokenDVision {
     if(balances.size() < 1) {
      balances.put(owner, totalSupply); 
   };
-  
+
 
   public query func showEntries(): async [(Principal, Nat)] {
     return Iter.toArray(balances.entries());
@@ -54,6 +54,8 @@ actor TokenDVision {
     };
     return balance;
   };
+
+
 
   public query func getSympol(): async Text {
     return sympol;
