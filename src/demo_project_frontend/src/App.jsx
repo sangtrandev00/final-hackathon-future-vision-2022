@@ -41,12 +41,27 @@ import EducationProjectPage from './Pages/FundProgramsPage/components/EducationP
 import NewProjectPage from './Pages/NewProjectPage/index';
 import NewDisbursementPage from './Pages/NewDisbursementPage/index';
 import NewTransaction from './Pages/NewTransaction/index';
+import { TokenDVision } from '../../declarations/TokenDVision/index';
 
 // import "./assets/css/style.css";
 // import "./assets/css/style.css";
 // import "./assets/css/style.css";
 
 function App() {
+  // useEffect(() => {
+  //   async function hardUpdate() {
+  //     const walletid = await window.ic?.plug?.requestConnect();
+  //     console.log(walletid);
+  //     const walletUser = window.ic.plug.principalId;
+  //     console.log(walletUser);
+  //     await TokenDVision.instantiate(walletUser);
+  //     document.getElementById('principal-id').innerText = walletUser;
+  //     console.log(walletUser);
+  //   }
+
+  //   hardUpdate();
+  // }, []);
+
   return (
     <div className="App">
       <div className="wrapper">

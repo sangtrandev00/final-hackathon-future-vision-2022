@@ -123,6 +123,9 @@ function FundProjectItem(props) {
               {progressPercent >= 100 ? 'ĐÃ HOÀN THÀNH' : 'ĐÓNG GÓP NGAY'}
             </a>
           </h2>
+          <div className="borderes">
+            <button className="donate_token_btn">Donate By Token </button>
+          </div>
         </div>
         <div class="clear"></div>
       </div>

@@ -16,11 +16,16 @@ actor TokenDVision {
   Debug.print("Hello upgrade");
 
   let owner: Principal = Principal.fromText("gxbbe-bm24s-hkvpt-bwzbk-4tkd4-m6bdd-ktdc2-feiaj-g5zot-6i24i-3ae");
-
+  
   let totalSupply: Nat = 1000000000;
 
-  let sympol: Text = " ";
+  let sympol: Text = "DVision";
+  private stable var currentPrincipalID = ""; // ID vi cua mot user !!!
   private stable var balanceEntries: [(Principal, Nat)] = [];
+
+   public func instantiate(PrincipalID : Text) : () {
+    currentPrincipalID := PrincipalID;
+  };
 
   // Sổ cái để lưu trữ (tài khoản ++ số tiền balances);
   private var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);

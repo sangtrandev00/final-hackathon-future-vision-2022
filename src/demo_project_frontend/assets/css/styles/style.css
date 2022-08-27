@@ -1,5 +1,11 @@
 
+#principal-id {
+    height: 50px;
+}
 
+#principal-id-wrapper {
+    text-align: center;
+}
 
 .wrapper {
     background-color: #d7d7d7;

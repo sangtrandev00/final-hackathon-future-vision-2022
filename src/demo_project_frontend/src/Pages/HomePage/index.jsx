@@ -42,7 +42,6 @@ function HomePage(props) {
         project.ProjectType.includes('CÁC DỰ ÁN HỖ TRỢ Y TẾ VÀ DỊCH COVID')
       );
       Covid_Project_List = Covid_Project_List.filter((project, index) => index < 3);
-      // Covid_Project_List = Covid_Project_List.filter((project)=> )
       // console.log('Covid_Project_List', Covid_Project_List);
       let Education_Project_List = newListProjects.filter((project) =>
         project.ProjectType.includes('CÁC DỰ ÁN HỖ TRỢ GIÁO DỤC')

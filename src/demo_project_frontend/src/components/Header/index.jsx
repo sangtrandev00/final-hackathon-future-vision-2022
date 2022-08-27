@@ -134,6 +134,10 @@ function Header(props) {
         </div>
         {/* <!-- kết thúc nav-mobile --> */}
       </nav>
+
+      <div id="principal-id-wrapper">
+        Hello User Princial ID Plug: <p id="principal-id"></p>
+      </div>
     </div>
   );
 }

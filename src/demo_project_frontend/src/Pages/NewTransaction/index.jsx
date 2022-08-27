@@ -34,9 +34,9 @@ function NewTransaction(props) {
           newProjectObj.ProjectType,
           newProjectObj.DateStart,
           newProjectObj.DateEnd,
+          0,
           Number(newProjectObj.TargetMoney),
           newProjectObj.Avatar,
-          // 'Some where', // Location -- from API
           newProjectObj.Location,
           newProjectObj.ShortDesc,
           newProjectObj.FullDesc
