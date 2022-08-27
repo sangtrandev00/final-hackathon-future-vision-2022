@@ -5,10 +5,19 @@ import { calculateDaysLeft } from '../../utils/Common';
 import { demo_project_backend } from '../../../../declarations/demo_project_backend';
 import './FundProjectItem.css';
 import { demo_project_frontend } from '../../../../declarations/demo_project_frontend/index';
+import { Principal } from '@dfinity/principal';
+import { TokenDVision } from '../../../../declarations/TokenDVision/index';
+
 FundProjectItem.propTypes = {};
 
 function FundProjectItem(props) {
   const [currentMoneyDonate, setCurrentMoneyDonate] = useState(0);
+  const [inputValue, setInput] = useState('');
+  const [balanceResult, setBalance] = useState('');
+  const [cryptoSympol, setSympol] = useState('');
+  console.log('cryptoSympol', cryptoSympol);
+  const [isHidden, setIsHidden] = useState(true);
+  const [isSuccessDonate, setIsSuccessDonate] = useState(false);
   const {
     ProjectID,
     Avatar,
@@ -49,9 +58,7 @@ function FundProjectItem(props) {
           sum += donate.DonateMoney;
         }
       });
-      console.log('current donate: ', sum, 'type of currentDonate: ', typeof sum);
       //Update CurrentTarget Money
-      console.log('Tạo dự án lần 2 --> Update currentMoney into canister backend');
       await demo_project_backend.createFundProject(
         ProjectID,
         ProjectName,
@@ -61,7 +68,7 @@ function FundProjectItem(props) {
         Number(sum),
         Number(TargetMoney),
         Avatar,
-        Location, // Location from API
+        Location,
         ShortDesc,
         FullDesc
       );
@@ -70,6 +77,48 @@ function FundProjectItem(props) {
     };
     getCurrentMoney();
   });
+
+  useEffect(() => {
+    const donateByToken = async () => {
+      // setIsHidden(true)
+    };
+
+    donateByToken();
+  }, []);
+
+  function handleChange(e) {
+    console.log(e.target.value);
+    setInput(e.target.value);
+  }
+
+  async function handleOnClick() {
+    console.log('Balance Button Clicked');
+    // setInput()
+    const currentPrincipalIDText = await TokenDVision.getCurrentPrincipal();
+    console.log('currentPrincipalIDtext', currentPrincipalIDText);
+    const currentPrincipalID = Principal.fromText(currentPrincipalIDText);
+    // const principal = Principal.fromText(inputValue);
+    // console.log(principal);
+    const balance = await TokenDVision.balanceOf(currentPrincipalID);
+    console.log('balance', balance);
+
+    const DonateFundToken = await TokenDVision.DonateFundToken(
+      Number(ProjectID),
+      Number(inputValue)
+    );
+    console.log('DonateFundToken', DonateFundToken);
+    console.log(await TokenDVision.sizeOfDonateTokenMaps());
+
+    const currencyText = await TokenDVision.getSympol();
+    console.log('currencyText', currencyText);
+
+    const isSuccessDonate = 'sucess transfer' ? true : false;
+    setIsSuccessDonate(isSuccessDonate);
+    setSympol(currencyText);
+    // console.log(typeof balance);
+    setIsHidden(false);
+    // setBalance(balance.toLocaleString()); // Formart Number on front end
+  }
 
   return (
     <div class="col-md-4 col-xs-12 fund-item-wrap">
@@ -123,9 +172,23 @@ function FundProjectItem(props) {
               {progressPercent >= 100 ? 'ĐÃ HOÀN THÀNH' : 'ĐÓNG GÓP NGAY'}
             </a>
           </h2>
-          <div className="borderes">
-            <button className="donate_token_btn">Donate By Token </button>
+          <div className="borderes donate_place">
+            <button className="donate_token_btn" onClick={handleOnClick}>
+              Đóng góp bằng Token
+            </button>
+            <input
+              className="donate_input"
+              type="text"
+              onChange={handleChange}
+              placeholder="Nhập số token ... DVision"
+              value={inputValue}
+            ></input>
           </div>
+          <p className="donate-input-text-status">
+            {isSuccessDonate
+              ? `Đã đóng góp ${inputValue} ${cryptoSympol} vào dự án có ID = ${ProjectID}`
+              : 'Tài khoản không đủ token để đóng góp'}
+          </p>
         </div>
         <div class="clear"></div>
       </div>

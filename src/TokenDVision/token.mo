@@ -23,13 +23,29 @@ actor TokenDVision {
   private stable var currentPrincipalID = ""; // ID vi cua mot user !!!
   private stable var balanceEntries: [(Principal, Nat)] = [];
 
+  private stable var currentDonateDvision = 0; 
+
    public func instantiate(PrincipalID : Text) : () {
     currentPrincipalID := PrincipalID;
+  };
+   public query func getCurrentPrincipal() : async Text {
+    // currentPrincipalID := PrincipalID;
+    return currentPrincipalID;
+  };
+
+    // Lấy tổng số Donate hiện tại
+   public query func getCurrentDonateDvision() : async Nat {
+    // currentPrincipalID := PrincipalID;
+    return currentDonateDvision;
   };
 
   // Sổ cái để lưu trữ (tài khoản ++ số tiền balances);
   private var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
-    if(balances.size() < 1) {
+  // Sổ cái lưu trữ (ID Dự án và số tiền của dự án đó);
+  private var donateTokenIDMaps = HashMap.HashMap<Nat, Nat>(1, Nat.equal, Hash.hash);
+  
+
+  if(balances.size() < 1) {
      balances.put(owner, totalSupply); 
   };
   
@@ -42,6 +58,21 @@ actor TokenDVision {
     return Principal.toText(msg.caller);
   };
 
+  public query func balanceOfId_(ProjectID_: Nat ): async Nat {
+    // let PrincipalID = Principal.fromText(who); 
+   let balance: Nat = switch(donateTokenIDMaps.get(ProjectID_)) {
+      case(null) {
+        return 0;
+      };
+      case(?result) {
+        return result;
+      };
+    };
+    return balance;
+  };
+
+
+  // Lấy số tiền của ID hiện tại
   public query func balanceOf(who: Principal): async Nat {
     // let PrincipalID = Principal.fromText(who); 
    let balance: Nat = switch(balances.get(who)) {
@@ -92,6 +123,38 @@ actor TokenDVision {
       } else {
         return "inincipient token to transfer!";
       }
+  };
+
+
+  
+  public  func DonateFundToken(toID: Nat, amount: Nat): async Text {
+      // Debug.print( "who sent: " #debug_show(msg.caller));
+      let currentPrincipalID = Principal.fromText(await getCurrentPrincipal());
+      let fromBalance = await balanceOf(currentPrincipalID);
+      if(fromBalance >= amount) {
+
+      let newFromBalance: Nat = fromBalance - amount;
+      balances.put(currentPrincipalID, newFromBalance);
+
+      currentDonateDvision += amount;
+      donateTokenIDMaps.put(toID, amount);
+
+      // let balanceOfToID_ = 
+      let toBalance = await balanceOfId_(toID);
+      // Error ở đây !!!
+      let newToBalance = toBalance + amount;
+        return "sucess transfer";
+      } else {
+        return "inincipient token to transfer!";
+      }
+  };
+
+  public query func sizeOfDonateTokenMaps(): async Nat {
+    return donateTokenIDMaps.size();
+  };
+
+   public query func view_all_donateTokenMap() : async [(Nat, Nat)] {
+    return Iter.toArray(donateTokenIDMaps.entries());
   };
 
   public func transferFromSystem(to: Principal, amount: Nat): async Text {

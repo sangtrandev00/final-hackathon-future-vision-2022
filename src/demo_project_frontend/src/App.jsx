@@ -16,6 +16,7 @@ import '../assets/css/styles/style-gioithieu.css';
 import '../assets/css/styles/style-donggop.css';
 import '../assets/css/styles/detail-donate-page.css';
 import '../assets/css/styles/style.css';
+import '../assets/css/styles/Token.css';
 import Banner from './components/Banner';
 import HeaderContact from './components/HeaderContact';
 import ImportantDonation from './components/ImportantDonation';
