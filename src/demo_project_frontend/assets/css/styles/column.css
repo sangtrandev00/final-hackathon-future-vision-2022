@@ -1,0 +1,36 @@
+.swapper{background-color: rgb(226, 226, 226);padding: 40px;}
+/* .row h2{
+    padding-left: 30px;
+} */
+.grid {
+    width: 100%;
+    display: block;
+    padding: 0;
+}
+
+.grid.wide {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+.row.no-gutters {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.col {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.row.no-gutters .col {
+    padding-left: 0;
+    padding-right: 0;
+}
