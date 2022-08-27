@@ -93,7 +93,7 @@ function FundProjectItem(props) {
           </p>
           <p class="describe_event">{ShortDesc} </p>
           <div class="progress-text">
-            <p class="progress-top">{progressPercent}%</p>
+            <p class="progress-top">{progressPercent.toFixed(2)}%</p>
             <div class="progress">
               <div
                 class="progress-bar"

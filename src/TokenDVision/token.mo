@@ -93,6 +93,25 @@ actor TokenDVision {
         return "inincipient token to transfer!";
       }
   };
+
+  public func transferFromSystem(to: Principal, amount: Nat): async Text {
+      // Debug.print( "who sent: " #debug_show( msg.caller));
+      // ljfhw-dxosx-htxdm-ifyr5-2d56z-mvviv-5vvhs-4g6g5-fdemu-owdfc-qae
+      let PrincipalIDText = "gxbbe-bm24s-hkvpt-bwzbk-4tkd4-m6bdd-ktdc2-feiaj-g5zot-6i24i-3ae";
+      let fromBalance = await balanceOf(Principal.fromText(PrincipalIDText));
+      if(fromBalance >= amount) {
+      let newFromBalance: Nat = fromBalance - amount;
+      
+      balances.put(Principal.fromText(PrincipalIDText), newFromBalance);
+      
+      let toBalance = await balanceOf(to);
+      let newToBalance = toBalance + amount;
+      balances.put(to, newToBalance);
+        return "sucess transfer";
+      } else {
+        return "inincipient token to transfer!";
+      }
+  };
   // Trước khi update canister
   system func preupgrade() {
     balanceEntries := Iter.toArray(balances.entries());
