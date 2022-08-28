@@ -37,9 +37,9 @@ function SearchPage(props) {
 
   async function showDonations() {
     const donationEntries = await demo_project_backend.view_all_entries();
-    console.log(donationEntries);
+    // console.log(donationEntries);
     let initDonationList = donationEntries.map((donation) => donation[1][0]);
-    console.log(initDonationList);
+    // console.log(initDonationList);
     // console.log(donationList);
     initDonationList = initDonationList.filter((donation) => donation != null);
     setTotalFunds(initDonationList.length);

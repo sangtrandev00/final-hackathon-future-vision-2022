@@ -56,49 +56,10 @@ function FundProgramsPage(props) {
 
   const match = useRouteMatch();
 
-  // switch (location.pathname) {
-  //   case '/covid-project-fund':
-  //     setProjectList(projects.covid_project_list);
-  //     break;
-  //   case '/living-project-fund':
-  //     setProjectList(projects.living_project_list);
-  //     break;
-  //   case '/cheap-food-project-fund':
-  //     setProjectList(projects.cheapfood_project_list);
-  //     break;
-  //   case '/poor-project-fund':
-  //     setProjectList(projects.poor_project_list);
-  //     break;
-  //   default:
-  //   // setProjectList(projects.poorProjects);
-  // }
-
   return (
     <div>
       <HeaderContact />
       <Header />
-
-      {/* <Route path={`${match.path}/poor-fund`}>
-            <Header />
-         <Route />  */}
-      {/* <FundItemGroup projectList={projectList} /> */}
-      {/* <Switch>
-        <Route path="/covid-project-fund">
-          <CovidProjectPage projectList={projects.covid_project_list} />
-        </Route>
-        <Route path="/living-project-fund">
-          <LivingProjectPage projectList={projects.living_project_list} />
-        </Route>
-        <Route path="/cheap-food-project-fund">
-
-          <CheapFoodProjectPage projectList={projects.cheapfood_project_list} />
-        </Route>
-        <Route path="/poor-project-fund">
-
-          <PoorProjectPage projectList={projects.poor_project_list} />
-        </Route>
-        <Route path="/fund-program-page" />
-      </Switch> */}
 
       <Footer />
     </div>

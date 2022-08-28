@@ -13,6 +13,7 @@ FundProjectItem.propTypes = {};
 function FundProjectItem(props) {
   const [currentMoneyDonate, setCurrentMoneyDonate] = useState(0);
   const [inputValue, setInput] = useState('');
+  const [successToken, setSuccessToken] = useState('');
   const [balanceResult, setBalance] = useState('');
   const [cryptoSympol, setSympol] = useState('');
   console.log('cryptoSympol', cryptoSympol);
@@ -31,6 +32,8 @@ function FundProjectItem(props) {
     TargetMoney,
     Location,
   } = props;
+
+  console.log(props);
   const LinkUrlToDetailFundPage = `/fund-detail-page?name=${ProjectID}`;
   console.log('ProjectID: ', ProjectID);
   const progressPercent = (currentMoneyDonate / TargetMoney) * 100;
@@ -106,13 +109,15 @@ function FundProjectItem(props) {
       Number(ProjectID),
       Number(inputValue)
     );
+    setSuccessToken(inputValue);
+
     console.log('DonateFundToken', DonateFundToken);
     console.log(await TokenDVision.sizeOfDonateTokenMaps());
 
     const currencyText = await TokenDVision.getSympol();
     console.log('currencyText', currencyText);
 
-    const isSuccessDonate = 'sucess transfer' ? true : false;
+    const isSuccessDonate = DonateFundToken == 'sucess transfer' ? true : false;
     setIsSuccessDonate(isSuccessDonate);
     setSympol(currencyText);
     // console.log(typeof balance);
@@ -131,7 +136,7 @@ function FundProjectItem(props) {
           <p>
             <span class="event_left">
               <i class="material-icons">access_time</i>
-              {dayLeft} ngày
+              {dayLeft >= 0 ? `${dayLeft} ngày` : 'Đã quá hạn'}
             </span>
             <p></p>
             <span class="event_right">
@@ -169,7 +174,7 @@ function FundProjectItem(props) {
               style={completeBtnStyle}
               to={progressPercent >= 100 ? '/' : '/donation-page'}
             >
-              {progressPercent >= 100 ? 'ĐÃ HOÀN THÀNH' : 'ĐÓNG GÓP NGAY'}
+              {progressPercent >= 100 ? 'ĐÃ HOÀN THÀNH' : 'ĐÓNG GÓP VN PAY'}
             </a>
           </h2>
           <div className="borderes donate_place">
@@ -184,9 +189,9 @@ function FundProjectItem(props) {
               value={inputValue}
             ></input>
           </div>
-          <p className="donate-input-text-status">
+          <p hidden={isHidden} className="donate-input-text-status">
             {isSuccessDonate
-              ? `Đã đóng góp ${inputValue} ${cryptoSympol} vào dự án có ID = ${ProjectID}`
+              ? `Đã đóng góp ${successToken} ${cryptoSympol} vào dự án có ID = ${ProjectID}`
               : 'Tài khoản không đủ token để đóng góp'}
           </p>
         </div>

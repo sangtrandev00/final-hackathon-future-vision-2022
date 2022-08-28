@@ -34,28 +34,33 @@ function HomePage(props) {
       // Read Project info
 
       let newListProjects = listProjects.map((project) => project[0]);
+      console.log('newListProjects', newListProjects);
       newListProjects = newListProjects.filter(
         (project) => project.CurrentMoney < project.TargetMoney
       );
-      // console.log(newListProjects);
+      console.log(newListProjects);
       let Covid_Project_List = newListProjects.filter((project) =>
         project.ProjectType.includes('CÁC DỰ ÁN HỖ TRỢ Y TẾ VÀ DỊCH COVID')
       );
+      console.log('Covid_Project_List', Covid_Project_List);
       Covid_Project_List = Covid_Project_List.filter((project, index) => index < 3);
       // console.log('Covid_Project_List', Covid_Project_List);
       let Education_Project_List = newListProjects.filter((project) =>
         project.ProjectType.includes('CÁC DỰ ÁN HỖ TRỢ GIÁO DỤC')
       );
+      console.log('Education_Project_List', Education_Project_List);
       Education_Project_List = Education_Project_List.filter((project, index) => index < 3);
       // console.log('Education_Project_List', Education_Project_List);
       let Homeless_Project_List = newListProjects.filter((project) =>
         project.ProjectType.includes('CÁC DỰ ÁN HỖ TRỢ NGƯỜI VÔ GIA CƯ')
       );
+      console.log('Homeless_Project_List', Homeless_Project_List);
       Homeless_Project_List = Homeless_Project_List.filter((project, index) => index < 3);
       // console.log('Homeless_Project_List', Education_Project_List);
       let Poor_Project_List = newListProjects.filter((project) =>
         project.ProjectType.includes('CÁC DỰ ÁN HỖ TRỢ NGƯỜI NGHÈO')
       );
+      console.log('Homeless_Project_List', Homeless_Project_List);
       Poor_Project_List = Poor_Project_List.filter((project, index) => index < 3);
       // console.log('Homeless_Project_List', Homeless_Project_List);
 
@@ -70,6 +75,8 @@ function HomePage(props) {
     fetchProjects();
   }, []);
 
+  // Gọi dữ liệu lên để lọc 3 sản phẩm
+  useEffect(() => {});
   // Phần này làm sau
 
   // useEffect(() => {

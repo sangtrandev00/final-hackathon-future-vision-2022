@@ -137,12 +137,12 @@ actor TokenDVision {
       balances.put(currentPrincipalID, newFromBalance);
 
       currentDonateDvision += amount;
-      donateTokenIDMaps.put(toID, amount);
 
       // let balanceOfToID_ = 
       let toBalance = await balanceOfId_(toID);
       // Error ở đây !!!
       let newToBalance = toBalance + amount;
+      donateTokenIDMaps.put(toID, newToBalance);
         return "sucess transfer";
       } else {
         return "inincipient token to transfer!";

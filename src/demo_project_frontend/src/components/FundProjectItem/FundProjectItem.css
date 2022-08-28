@@ -6,7 +6,11 @@ div.fund-item-wrap{
 
 div.fund-item-wrap:nth-child(n + 4) {
     /* color: green; */
-    margin-top: 120px;
+    margin-top: 300px;
+}
+
+.donate_token_btn {
+    cursor: pointer;
 }
 
 /* div.fund-item-wrap:nth-child(2) {

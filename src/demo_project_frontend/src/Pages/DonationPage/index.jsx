@@ -9,53 +9,53 @@ import { demo_project_backend } from '../../../../declarations/demo_project_back
 DonationPage.propTypes = {};
 
 function DonationPage(props) {
-  const [donation, setDonation] = useState({
-    covid_project_list: [],
-    living_project_list: [],
-    cheapfood_project_list: [],
-    poor_project_list: [],
-  });
+  // const [donation, setDonation] = useState({
+  //   covid_project_list: [],
+  //   living_project_list: [],
+  //   cheapfood_project_list: [],
+  //   poor_project_list: [],
+  // });
 
   //   const [projectList, setProjectList] = useState([]);
 
-  useEffect(() => {
-    const fetchDonations = async () => {
-      const fundDonates = await fundDonateApi.getAll();
-      console.log(fundDonates.list_donate);
+  // useEffect(() => {
+  //   const fetchDonations = async () => {
+  //     const fundDonates = await fundDonateApi.getAll();
+  //     console.log(fundDonates.list_donate);
 
-      const donationList = fundDonates.list_donate;
-      donationList.forEach((donation) => {
-        const createDonation = async () => {
-          await demo_project_backend.createDonation(
-            donation.FundDonateId,
-            donation.NameDonor,
-            donation.Email,
-            donation.Phone,
-            20000000,
-            donation.NameProject,
-            donation.Message,
-            donation.TimeDonate,
-            donation.FundProjectId,
-            donation.TypeProject
-          );
-        };
-        createDonation();
-      });
+  //     const donationList = fundDonates.list_donate;
+  //     donationList.forEach((donation) => {
+  //       const createDonation = async () => {
+  //         await demo_project_backend.createDonation(
+  //           donation.FundDonateId,
+  //           donation.NameDonor,
+  //           donation.Email,
+  //           donation.Phone,
+  //           20000000,
+  //           donation.NameProject,
+  //           donation.Message,
+  //           donation.TimeDonate,
+  //           donation.FundProjectId,
+  //           donation.TypeProject
+  //         );
+  //       };
+  //       createDonation();
+  //     });
 
-      // const covid_project_list = cateProjects.category_1;
-      // const living_project_list = cateProjects.category_2;
-      // const cheapfood_project_list = cateProjects.category_3;
-      // const poor_project_list = cateProjects.category_4;
-      // setProjects({
-      //   covid_project_list: covid_project_list,
-      //   living_project_list: living_project_list,
-      //   cheapfood_project_list: cheapfood_project_list,
-      //   poor_project_list: poor_project_list,
-      // });
-    };
+  //     // const covid_project_list = cateProjects.category_1;
+  //     // const living_project_list = cateProjects.category_2;
+  //     // const cheapfood_project_list = cateProjects.category_3;
+  //     // const poor_project_list = cateProjects.category_4;
+  //     // setProjects({
+  //     //   covid_project_list: covid_project_list,
+  //     //   living_project_list: living_project_list,
+  //     //   cheapfood_project_list: cheapfood_project_list,
+  //     //   poor_project_list: poor_project_list,
+  //     // });
+  //   };
 
-    fetchDonations();
-  }, []);
+  //   fetchDonations();
+  // }, []);
 
   return (
     <div className="donation-page">

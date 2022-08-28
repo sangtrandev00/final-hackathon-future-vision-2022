@@ -49,19 +49,20 @@ import { TokenDVision } from '../../declarations/TokenDVision/index';
 // import "./assets/css/style.css";
 
 function App() {
-  useEffect(() => {
-    async function hardUpdate() {
-      const walletid = await window.ic?.plug?.requestConnect();
-      console.log(walletid);
-      const walletUser = window.ic.plug.principalId;
-      console.log(walletUser);
-      await TokenDVision.instantiate(walletUser);
-      document.getElementById('principal-id').innerText = walletUser;
-      console.log(walletUser);
-    }
+  // Ví plug
+  // useEffect(() => {
+  //   async function hardUpdate() {
+  //     const walletid = await window.ic?.plug?.requestConnect();
+  //     // console.log(walletid);
+  //     const walletUser = window.ic.plug.principalId;
+  //     // console.log(walletUser);
+  //     await TokenDVision.instantiate(walletUser);
+  //     document.getElementById('principal-id').innerText = walletUser;
+  //     // console.log(walletUser);
+  //   }
 
-    hardUpdate();
-  }, []);
+  //   hardUpdate();
+  // }, []);
 
   return (
     <div className="App">
@@ -70,7 +71,7 @@ function App() {
           <Route path="/introduction-page" component={IntroPage} />
           <Route path="/programs-fund-page" component={ProgramsfundPage} />
           <Route path="/covid-project-fund" component={CovidProjectPage} />
-          <Route path="/new-transtraction-page" component={NewTransaction} exact={false} />
+          <Route path="/new-transtraction-page" component={NewTransaction} exact={true} />
           {/* <Route path="/new-project-page" component={NewProjectPage} exact={false} />
           <Route path="/new-disbursement-page" component={NewDisbursementPage} exact={false} /> */}
           <Route path="/education-project-fund" component={EducationProjectPage} />
