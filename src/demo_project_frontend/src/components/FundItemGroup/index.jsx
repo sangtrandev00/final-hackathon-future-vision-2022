@@ -11,7 +11,7 @@ function FundItemGroup(props) {
   return (
     <div>
       <section class="our_cuauses">
-        <h2>{nameFundGroup}</h2>
+        <h2 style={{ marginTop: '200px' }}>{nameFundGroup}</h2>
         <div class="container">
           <div class="row">
             <div class="col-md-12">

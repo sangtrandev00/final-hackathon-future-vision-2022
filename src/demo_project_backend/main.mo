@@ -227,7 +227,6 @@ actor {
   //   // switch(Text.equal(newFundProject_.IdFundProject,))
   // }
 
-
   public query func sizeOfFundDonationMaps(): async Nat {
     return FundDonationMaps.size();
   };

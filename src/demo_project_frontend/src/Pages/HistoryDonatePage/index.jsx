@@ -14,7 +14,7 @@ function HistoryDonatePage(props) {
 
   const params = useLocation();
   const idDonation = params.search.substring(6);
-  console.log(idDonation);
+  // console.log(idDonation);
   useEffect(() => {
     async function showDetailDonateInfo() {
       // const donationList
@@ -32,7 +32,7 @@ function HistoryDonatePage(props) {
       // newDonation.Message = Message;
       // newDonation.NameProject = NameProject;
       // newDonation.TimeDonate = TimeDonate;
-      console.log(newDonation);
+      // console.log(newDonation);
       setDonation(newDonation);
     }
     // console.log(params);

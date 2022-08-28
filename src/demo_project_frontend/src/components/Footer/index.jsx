@@ -5,7 +5,7 @@ Footer.propTypes = {};
 
 function Footer(props) {
   return (
-    <div>
+    <div style={{ marginTop: '200px' }}>
       <footer class="footer">
         <div class="container">
           <div class="row">

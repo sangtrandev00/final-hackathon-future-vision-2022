@@ -28,6 +28,7 @@
 .col {
     padding-left: 4px;
     padding-right: 4px;
+    width: 50%;
 }
 
 .row.no-gutters .col {

@@ -10,6 +10,9 @@ import { demo_project_backend } from '../../../../declarations/demo_project_back
 import { sumMoney } from '../../utils/Common';
 import DonorRow from './DonorRow/index';
 import { calculateDaysLeft } from '../../utils/Common';
+
+import { Principal } from '@dfinity/principal';
+import { TokenDVision } from '../../../../declarations/TokenDVision/index';
 DetailFundPage.propTypes = {};
 
 // function calculateDaysLeft(DateEnd) {
@@ -22,6 +25,15 @@ DetailFundPage.propTypes = {};
 
 function DetailFundPage(props) {
   const [fullDescHtml, setFullDesc] = useState('');
+  // States of Token donate
+  // const [currentMoneyDonate, setCurrentMoneyDonate] = useState(0);
+  const [inputValue, setInput] = useState('');
+  const [successToken, setSuccessToken] = useState('');
+  const [balanceResult, setBalance] = useState('');
+  const [cryptoSympol, setSympol] = useState('');
+  console.log('cryptoSympol', cryptoSympol);
+  const [isHidden, setIsHidden] = useState(true);
+  const [isSuccessDonate, setIsSuccessDonate] = useState(false);
 
   // Full description
   const [fundProject, setFundProject] = useState({});
@@ -29,7 +41,7 @@ function DetailFundPage(props) {
 
   const [currentMoneyDonate, setCurrentMoneyDonate] = useState(0);
   const [progressPercent, setProgressPercent] = useState(0);
-  console.log('currentMoneyDonate', currentMoneyDonate);
+  // console.log('currentMoneyDonate', currentMoneyDonate);
   const LinkUrlDisburseMentPage = `/disbursement-detail-page?name=${fundProject.ProjectID}`;
   const daysLeft = calculateDaysLeft(fundProject.DateEnd);
   // const daysLeft = -1; test quá hạn dự án !!!
@@ -49,7 +61,7 @@ function DetailFundPage(props) {
   useEffect(() => {
     async function showDetailFundProject() {
       const fundProjectObject = await demo_project_backend.view_fund_project(idFundProject);
-      console.log(fundProjectObject);
+      // console.log(fundProjectObject);
       // console.log(FundDonationObject[0]);
       const { TargetMoney } = fundProjectObject[0];
       const newFundProject = {
@@ -57,9 +69,9 @@ function DetailFundPage(props) {
         TargetMoney: TargetMoney,
       };
 
-      console.log(fundProjectObject[0]);
+      // console.log(fundProjectObject[0]);
       setFundProject(newFundProject);
-      console.log(newFundProject.FullDesc);
+      // console.log(newFundProject.FullDesc);
       document.querySelector('.detail-fund__body-full-detail-text').innerHTML =
         newFundProject.FullDesc;
       const donateListEntries = await demo_project_backend.readDonateInfo();
@@ -80,64 +92,59 @@ function DetailFundPage(props) {
       setCurrentMoneyDonate(sum);
 
       const currentProgressPercent = (sum / Number(newFundProject.TargetMoney)) * 100;
-      console.log(currentMoneyDonate, Number(newFundProject.TargetMoney));
-      console.log('currentProgressPercent', currentProgressPercent);
+      // console.log(currentMoneyDonate, Number(newFundProject.TargetMoney));
+      // console.log('currentProgressPercent', currentProgressPercent);
       setProgressPercent(currentProgressPercent);
       setDonateList(currentDonateList);
     }
-
-    // const getCurrentMoney = async () => {
-    //   //
-    //   console.log('hello 2');
-    //   const donateListEntries = await demo_project_backend.readDonateInfo();
-    //   let donateList = donateListEntries.map((donateList) => donateList[0]);
-    //   // Lọc ra nhưng donate rỗng
-    //   donateList = donateList.filter((donate) => donate != null);
-    //   console.log('donateList: ', donateList);
-    //   let sum = 0;
-    //   donateList.forEach((donate) => {
-    //     if (donate.FundProjectId == idFundProject) {
-    //       sum += donate.DonateMoney;
-    //     }
-    //   });
-
-    //   // const newMoney = sumMoney(fundProject.FundProjectId, donateList);
-    //   setCurrentMoneyDonate(sum);
-    //   setDonateList(donateList);
-    // };
 
     // getCurrentMoney();
     showDetailFundProject();
   }, []);
 
-  // Call Motoko function backend --> get current money
-  // useEffect(() => {
-  //   const getCurrentMoney = async () => {
-  //     const donateListEntries = await demo_project_backend.readDonateInfo();
-  //     let donateList = donateListEntries.map((donateList) => donateList[0]);
-  //     // Lọc ra nhưng donate rỗng
-  //     donateList = donateList.filter((donate) => donate != null);
-  //     console.log('donateList: ', donateList);
-  //     let sum = 0;
-  //     donateList.forEach((donate) => {
-  //       console.log('donate.FundProjectId: ', donate.FundProjectId);
-  //       console.log('fundProject.ProjectID: ', idFundProject);
-  //       if (donate.FundProjectId == idFundProject) {
-  //         sum += donate.DonateMoney;
-  //       }
-  //     });
+  useEffect(() => {
+    const donateByToken = async () => {
+      // setIsHidden(true)
+    };
 
-  //     // const newMoney = sumMoney(fundProject.FundProjectId, donateList);
-  //     setCurrentMoneyDonate(sum);
-  //     setDonateList(donateList);
-  //   };
-  //   getCurrentMoney();
-  // }, []);
-  // console.log('donateList', donateList);
+    donateByToken();
+  }, []);
 
-  // Full Description backend
-  console.log(document.querySelector('.detail-fund__body-full-detail-text'));
-  // document.querySelector('.detail-fund__body-full-detail-text').innerHTML = fullDescHtml;
+  function handleChange(e) {
+    console.log(e.target.value);
+    setInput(e.target.value);
+  }
+
+  async function handleOnClick() {
+    console.log('Balance Button Clicked');
+    // setInput()
+    const currentPrincipalIDText = await TokenDVision.getCurrentPrincipal();
+    console.log('currentPrincipalIDtext', currentPrincipalIDText);
+    const currentPrincipalID = Principal.fromText(currentPrincipalIDText);
+    // const principal = Principal.fromText(inputValue);
+    // console.log(principal);
+    const balance = await TokenDVision.balanceOf(currentPrincipalID);
+    console.log('balance', balance);
+
+    const DonateFundToken = await TokenDVision.DonateFundToken(
+      Number(idFundProject),
+      Number(inputValue)
+    );
+    setSuccessToken(inputValue);
+
+    console.log('DonateFundToken', DonateFundToken);
+    console.log(await TokenDVision.sizeOfDonateTokenMaps());
+
+    const currencyText = await TokenDVision.getSympol();
+    console.log('currencyText', currencyText);
+
+    const isSuccessDonate = DonateFundToken == 'sucess transfer' ? true : false;
+    setIsSuccessDonate(isSuccessDonate);
+    setSympol(currencyText);
+    // console.log(typeof balance);
+    setIsHidden(false);
+    // setBalance(balance.toLocaleString()); // Formart Number on front end
+  }
 
   return (
     <div className="detail-fund-page">
@@ -173,6 +180,7 @@ function DetailFundPage(props) {
 
                 <div class="detail-fund__body-full-detail-donor-list">
                   <h2>Các nhà hảo tâm đã đóng góp</h2>
+                  <h3>Đóng góp bằng tiền VND</h3>
                   <ul>
                     {donateFundList.map((donate) => {
                       console.log('donateName: ', donate.Name);
@@ -189,6 +197,9 @@ function DetailFundPage(props) {
                     <li>Nguyễn Văn E - Đã góp 8 triệu - </li>
                     <li>Nguyễn Văn F - Đã góp 14 triệu - </li> */}
                   </ul>
+
+                  <h3>Đóng góp bằng token DVision</h3>
+                  {/* <ul></ul> */}
                 </div>
               </div>
             </div>
@@ -247,8 +258,29 @@ function DetailFundPage(props) {
                   href={progressPercent >= 100 ? '/fund-detail-page' : LinkToDonationPhpPage}
                 >
                   {(daysLeft < 0 && 'Đã Quá Hạn') ||
-                    (progressPercent > 100 ? 'ĐÃ ĐÓNG GÓP' : 'ĐÓNG GÓP NGAY')}
+                    (progressPercent > 100 ? 'ĐÃ ĐÓNG GÓP' : 'ĐÓNG GÓP VNPAY')}
                 </a>
+
+                {/* Donate by Token Input */}
+                <div className="borderes donate_place">
+                  <button className="donate_token_btn" onClick={handleOnClick}>
+                    Đóng góp bằng Token
+                  </button>
+                  <input
+                    className="donate_input"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Nhập số token ... DVision"
+                    value={inputValue}
+                  ></input>
+                </div>
+                <p hidden={isHidden} className="donate-input-text-status">
+                  {isSuccessDonate
+                    ? `Đã đóng góp ${successToken} ${cryptoSympol} vào dự án có ID = ${idFundProject}`
+                    : 'Tài khoản không đủ token để đóng góp'}
+                </p>
+
+                {/* End Donate by Token Input */}
               </h2>
               <div class="finance">
                 <h2 class="finance-title">BÁO CÁO TÀI CHÍNH</h2>

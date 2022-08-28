@@ -16,10 +16,10 @@ DisbursementPage.propTypes = {};
 function DisbursementPage(props) {
   const params = useLocation();
   const IdDetailProject = params.search.substring(6);
-  console.log(IdDetailProject);
+  // console.log(IdDetailProject);
 
   const [currentDisbursementList, setCurrentDisbursementList] = useState([]);
-  console.log('real: currentDisbursementList', currentDisbursementList);
+  // console.log('real: currentDisbursementList', currentDisbursementList);
   // const DateAppliedSystem = new Date(DateConfirm);
   // const listDisbursementString = NumberDisbursement.join(', ');
   // console.log('disbursementId: ', DisbursementID);
@@ -61,14 +61,14 @@ function DisbursementPage(props) {
   useEffect(() => {
     const getCurrentDisbursementList = async () => {
       let disbursementList = await demo_project_backend.readValueDisbursementInfos();
-      console.log('first disbursement: ', disbursementList);
+      // console.log('first disbursement: ', disbursementList);
       disbursementList = disbursementList.map((disbursement) => disbursement[0]);
-      console.log('disbursementList', disbursementList);
+      // console.log('disbursementList', disbursementList);
       let currentDisbursementList = disbursementList.filter(
         (disbursement) => disbursement.ProjectID == IdDetailProject
       );
-      console.log('currentDisbursementList', currentDisbursementList);
-      console.log('typeof currentDisbursementList', typeof currentDisbursementList);
+      // console.log('currentDisbursementList', currentDisbursementList);
+      // console.log('typeof currentDisbursementList', typeof currentDisbursementList);
       currentDisbursementList = Array.from(currentDisbursementList);
       setCurrentDisbursementList(currentDisbursementList);
     };
@@ -91,7 +91,7 @@ function DisbursementPage(props) {
             // IdDetailProject={currentDisbursement.IdDetailProject}
             DisbursementMoney={currentDisbursement.DisbursementMoney}
             // DateAppliedSystem={DateAppliedSystem}
-            nameProject={'Hello'}
+            nameProject={currentDisbursement.ProjectName}
             ProjectID={currentDisbursement.ProjectID}
             TypeProject={currentDisbursement.TypeProject}
             UserRequest={currentDisbursement.UserRequest}
