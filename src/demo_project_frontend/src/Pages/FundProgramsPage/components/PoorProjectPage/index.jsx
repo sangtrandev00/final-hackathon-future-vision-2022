@@ -39,8 +39,8 @@ function PoorProjectPage(props) {
 
       setProjects({
         covid_project_list: Covid_Project_List,
-        living_project_list: Education_Project_List,
-        cheapfood_project_list: Homeless_Project_List,
+        eudcation_project_list: Education_Project_List,
+        homeless_project_list: Homeless_Project_List,
         poor_project_list: Poor_Project_List,
       });
     };

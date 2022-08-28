@@ -12,8 +12,8 @@ CovidProjectPage.propTypes = {};
 function CovidProjectPage(props) {
   const [projects, setProjects] = useState({
     covid_project_list: [],
-    living_project_list: [],
-    cheapfood_project_list: [],
+    eudcation_project_list: [],
+    homeless_project_list: [],
     poor_project_list: [],
   });
 
@@ -41,10 +41,11 @@ function CovidProjectPage(props) {
       // console.log('Homeless_Project_List', Homeless_Project_List);
 
       setProjects({
+        ...projects,
         covid_project_list: Covid_Project_List,
-        living_project_list: Education_Project_List,
-        cheapfood_project_list: Homeless_Project_List,
-        poor_project_list: Poor_Project_List,
+        // eudcation_project_list: Education_Project_List,
+        // homeless_project_list: Homeless_Project_List,
+        // poor_project_list: Poor_Project_List,
       });
     };
 

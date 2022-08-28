@@ -12,8 +12,8 @@ HomeLessProjectPage.propTypes = {};
 function HomeLessProjectPage(props) {
   const [projects, setProjects] = useState({
     covid_project_list: [],
-    living_project_list: [],
-    cheapfood_project_list: [],
+    eudcation_project_list: [],
+    homeless_project_list: [],
     poor_project_list: [],
   });
 
@@ -41,10 +41,11 @@ function HomeLessProjectPage(props) {
       // console.log('Homeless_Project_List', Homeless_Project_List);
 
       setProjects({
-        covid_project_list: Covid_Project_List,
-        living_project_list: Education_Project_List,
-        cheapfood_project_list: Homeless_Project_List,
-        poor_project_list: Poor_Project_List,
+        ...projects,
+        // covid_project_list: Covid_Project_List,
+        // eudcation_project_list: Education_Project_List,
+        homeless_project_list: Homeless_Project_List,
+        // poor_project_list: Poor_Project_List,
       });
     };
 
@@ -57,7 +58,7 @@ function HomeLessProjectPage(props) {
       <Header />
       <FundItemGroup
         nameFundGroup="CÁC DỰ ÁN HỖ TRỢ NGƯỜI VÔ GIA CƯ"
-        fundProjectList={projects.living_project_list}
+        fundProjectList={projects.homeless_project_list}
         // Chỉnh sửa list này sau
       />
 

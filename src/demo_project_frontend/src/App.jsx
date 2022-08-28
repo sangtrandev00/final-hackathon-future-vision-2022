@@ -50,19 +50,19 @@ import { TokenDVision } from '../../declarations/TokenDVision/index';
 
 function App() {
   // Ví plug
-  // useEffect(() => {
-  //   async function hardUpdate() {
-  //     const walletid = await window.ic?.plug?.requestConnect();
-  //     // console.log(walletid);
-  //     const walletUser = window.ic.plug.principalId;
-  //     // console.log(walletUser);
-  //     await TokenDVision.instantiate(walletUser);
-  //     document.getElementById('principal-id').innerText = walletUser;
-  //     // console.log(walletUser);
-  //   }
+  useEffect(() => {
+    async function hardUpdate() {
+      const walletid = await window.ic?.plug?.requestConnect();
+      // console.log(walletid);
+      const walletUser = window.ic.plug.principalId;
+      // console.log(walletUser);
+      await TokenDVision.instantiate(walletUser);
+      document.getElementById('principal-id').innerText = walletUser;
+      // console.log(walletUser);
+    }
 
-  //   hardUpdate();
-  // }, []);
+    hardUpdate();
+  }, []);
 
   return (
     <div className="App">
